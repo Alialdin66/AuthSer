@@ -1,5 +1,6 @@
 package com.example.AuthSer.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -14,7 +15,8 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-    private final Key SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        private final Key SECRET = Keys.hmacShaKeyFor("ThisIsMyVerySecrnbbeieirgwrqhfhdbeheeiieiewwbwwbbdnndkeowpqjfqjeqfpetKeyForHS512ThatIsLongEnough123456".getBytes(StandardCharsets.UTF_8));
+
 
     public String generateToken(User user) {
         return Jwts.builder()
@@ -26,6 +28,7 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // 1 ساعة
                 .signWith(SECRET, SignatureAlgorithm.HS512) // ✅ مهم جداً تطابق الـ algorithm
                 .compact();
+                
     }
 
     public Claims extractClaims(String token) {

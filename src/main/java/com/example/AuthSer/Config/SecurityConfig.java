@@ -18,7 +18,8 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         .formLogin(form -> form.disable()) // ⛔ تعطيل login form نهائياً
         .httpBasic(httpBasic -> httpBasic.disable()) // ⛔ تعطيل basic auth كمان لو مش محتاجه
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/login", "/auth/register").permitAll()
+            .requestMatchers("/auth/**").permitAll()
+
             .anyRequest().authenticated()
         );
 
